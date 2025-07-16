@@ -1,11 +1,11 @@
 import pathlib
 import os
 
-DATAPATH = "DataSet"
+DATAPATH = "MyPipeline/DataSet"
 FileName= 'loan_approval_dataset.csv'
 
 MODEL_NAME = 'classification.pkl'
-SAVE_MODEL_PATH = 'trained_models'
+SAVE_MODEL_PATH = 'MyPipeline/trained_models'
 
 
 Skew_handling_meth = 'yeo-johnson'
