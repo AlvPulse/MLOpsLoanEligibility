@@ -77,8 +77,18 @@ def train_pipeline_mlflow(search_space: dict):
 
     sorted_model= sorted(model_results, key=lambda x: x[2]["accuracy"],reverse=True)
     top_model_name, top_model, top_metrics = sorted_model[0]
-    best_model_path = f"{SAVE_MODEL_PATH}/{MODEL_NAME}_{top_model_name}.pkl"
+    best_model_path = f"{SAVE_MODEL_PATH}/{top_model_name}.pkl"
     joblib.dump(top_model, best_model_path)
+    print("top_model_name",top_model_name)
+    print("top_model",top_model)
+    mlflow.sklearn.log_model(
+        sk_model=top_model,
+        artifact_path=best_model_path,
+        registered_model_name=f"{top_model_name}Classifier"  # This registers the model!
+        # The 'registered_model_name' is the name it will appear under in the Model Registry.
+        # If it doesn't exist, MLflow creates it.
+        # If it exists, it creates a new version of that model.
+    )
 
     print(f"\n✅ Best model: {top_model_name}")
     print(f"Metrics: {top_metrics}")
